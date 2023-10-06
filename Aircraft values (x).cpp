@@ -1,8 +1,8 @@
 
-// This is the data for the speed, wingspan, and Maximum take-off weight of aircraft models and their given engine types
+// This is the data for the Approach speed, Wingspan, and Maximum take-off weight of aircraft models and their given Engine types
 
   // M-346 Master
-  x = [124, 31.89, 20.945]; //Speed, Wingspan, MTOW
+  x = [124, 31.89, 20.945]; //Approach speed, Wingspan, MTOW
   y = [1]; //Turbojet
 
   // AT-402B
