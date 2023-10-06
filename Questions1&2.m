@@ -1,3 +1,7 @@
+//Homework 1
+//Team: Tom Hansen, Kameron Metcalf, Ian Atkinson
+//Professor Thanakorn Khamvilai
+
 #include "HW-1.h"
 #include <iostream>
 #include <vector>
