@@ -1,4 +1,4 @@
-Question 5
+//Question 5
 // Sigmoid equation for #5
 double sigmoid(double z)
 {
