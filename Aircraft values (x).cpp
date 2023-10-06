@@ -38,6 +38,7 @@
 
   double w = wi; // w from question 8
   double y = 1; //1 is a placeholder for the type of engine
+  string airplane = planetype; //used to display what type of plane has the found type of engine
 
 for (int i = 1; i <= 4; ++i) {
   // code block to be executed
@@ -46,6 +47,7 @@ for (int i = 1; i <= 4; ++i) {
 if(i = 1)
 {
   x = [87.0, 38.67, 6.000];
+  airplane = SF50;
 EngineDetermination();
   return 0;
 }
@@ -54,6 +56,7 @@ EngineDetermination();
 if(i = 2)
 {
   x = [79.0, 52.08, 8.000];
+   airplane = 208 Caravan;
 EngineDetermination();
 return 0;
 }
@@ -62,6 +65,7 @@ if(i = 3)
 {
 //Aero L-29 Delfin
   x = [92.0, 33.75, 7.804]; 
+   airplane = Aero L-29 Delfin;
 EngineDetermination();
 return 0;
 }
@@ -70,6 +74,7 @@ if(i = 4)
 {
 //AT-802U
   x = [91.0, 59.25, 16.000];
+  airplane = AT-802U;
 EngineDetermination();
 return 0;
 }
