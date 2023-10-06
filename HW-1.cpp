@@ -37,6 +37,7 @@ void Q1()
 
 void Q2() 
 {
+    cout << endl;
     cout << "QUESTION 2:" << endl;
     int K = 2; // Control gain
 
@@ -66,6 +67,7 @@ void Q2()
 
 void Q3() 
 {
+    cout << endl;
     cout << "QUESTION 3:" << endl;
     int K = 0; 
     int K_old = 2; // Control gain beginning
@@ -100,12 +102,35 @@ void Q3()
 // dot product function used for Q4
 double dot_product(vector<double> a, vector<double> b)
 {
-    double dotproduct = inner_product(a.begin(), a.end(), b.begin(), 0); // Using inner_product from <numeric>
+    double dotproduct = 0;
+    for (int i = 0; i < a.size(); i++)
+    {
+        dotproduct += b[i] * a[i];
+    }
     return dotproduct;
 }
 
+//vector<double> transposer(vector<double> vect)
+//{
+//    vector<vector<double>> test = { {1}, {2}, {3} };
+//
+//    for (int i = 0; i < vect.size(); i++)
+//    {
+//        
+//        /*for (int j = 0; j < vect[i].size(); j++)
+//        {
+//            vect[j][i] = vect[i][j];
+//        }*/
+//    }
+//    for (int i = 0; i < 3; ++i)
+//        for (int j = 0; j < 1; ++j)
+//            test[i * 6 + j] = vect[j * 6 + i];
+//    return vect;
+//}
+
 void Q4() 
 {
+    cout << endl;
     cout << "QUESTION 4:" << endl;
     vector<double> w = { 0.0001, 0.0001, 0.0001 };
     vector<double> x = { 124, 31.89, 20.945 };
@@ -130,6 +155,7 @@ double gradient_sigmoid(double z)
 
 void Q5() 
 {
+    cout << endl;
     cout << "QUESTION 5:" << endl;
     double z = 0.0176835;
 
@@ -148,6 +174,7 @@ double gradient_cost(double y, double y_predict)
 
 void Q6() 
 {
+    cout << endl;
     cout << "QUESTION 6:" << endl;
     double y = 1.0;
     double y_predicted = 0.504421;
@@ -157,22 +184,30 @@ void Q6()
     cout << "dC = " << dC << std::endl;
 }
 
-vector<double> gradient_weights(double sigma, vector<double> x, double y, vector<double> w)
+vector<double> gradient_weights(double sigma, vector<double> x, double y, const vector<double> w)
 {
     double z = dot_product(w, x);
-    double dwi = (2 * (sigma * (z) - y) * (sigma * (z) * (1 - sigma * (z))));
+    vector<double> dw = { 0, 0, 0 };
+    for (int i = 0; i < 2; ++i) // multiplying each value in dw by x
+    {
+        dw[i] = (2 * (sigma * (z) - y) * (sigma * (z) * (1 - sigma * (z)))) * x[i];
+    }
+    return dw;
 }
 
-double update_weights/*(vector<double> wi, double a, double dwi)*/(vector<double>& w, const vector<double>& dw, double alpha) 
+vector<double> update_weights(vector<double> w, const vector<double> dw, double alpha) /*(vector<double> wi, double a, double dwi)*/
 {
-    for (size_t i = 0; i < w.size(); ++i) 
+    for (int i = 0; i < 3; ++i) // multiplying each value in w x
     {
-        w[i] -= alpha * dw[i];
+        w[i] = w[i] - alpha * dw[i];
     }
+    return w;
 }
 
 void Q7() 
 {
+    cout << endl;
+    cout << "QUESTION 7:" << endl;
     //Reused from 4
     vector<double> w = { 0.0001, 0.0001, 0.0001 };
     vector<double> x = { 124, 31.89, 20.945 };
@@ -187,14 +222,91 @@ void Q7()
     vector<double> dw = gradient_weights(sigmoid_output, x, y, w);
 
     // Update the weights
-    update_weights(w, dw, alpha);
+    w = update_weights(w, dw, alpha);
 
     // Print the updated weights
     cout << "Updated weights: ";
-    for (size_t i = 0; i < w.size(); ++i) {
+    for (int i = 0; i < w.size(); ++i) {
         cout << w[i] << " ";
     }
     cout << endl;
+}
+
+void Q8()
+{
+    cout << endl;
+    cout << "QUESTION 8:" << endl;
+    vector<double> w = { 0.0001, 0.0001, 0.0001 };
+    double alpha = 0.001;
+}
+
+void Q9()
+{
+    cout << endl;
+    cout << "QUESTION 9:" << endl;
+    vector<double> wi = { 0.0001, 0.0001, 0.0001 }; // w from question 8
+    double y = 1; //1 is a placeholder for the type of engine
+    string airplane = planetype; //used to display what type of plane has the found type of engine
+
+    for (int i = 1; i <= 4; ++i) {
+        // code block to be executed
+
+      //SF50 Vision
+        if (i = 1)
+        {
+            vector<double> x = { 87.0, 38.67, 6.000 };
+            airplane = SF50;
+            EngineDetermination();
+            return 0;
+        }
+
+        //208 Caravan
+        if (i = 2)
+        {
+            vector<double> x = { 79.0, 52.08, 8.000 };
+            airplane = 208 Caravan;
+            EngineDetermination();
+            return 0;
+        }
+
+        if (i = 3)
+        {
+            //Aero L-29 Delfin
+            vector<double> x = { 92.0, 33.75, 7.804 };
+            airplane = Aero L - 29 Delfin;
+            EngineDetermination();
+            return 0;
+        }
+
+        if (i = 4)
+        {
+            //AT-802U
+            vector<double> x = { 91.0, 59.25, 16.000 };
+            airplane = AT - 802U;
+            EngineDetermination();
+            return 0;
+        }
+    }
+}
+
+void EngineDetermination() 
+{  //function to determine which engine type the plane posesses
+    //math to find y to determine engine type         
+    if (y > 0.5) {
+
+        cout << "The engine type of a " << airplane << " is a Jet Engine." << endl;
+
+        if (y < 0.5)
+        {
+            cout << "The engine type of a " << airplane << " is a Turbo Prop." << endl;
+        }
+
+        else
+        {
+            cout << "This plane doesn't work." << endl;
+        }
+    }
+
 }
 
 int main() {
@@ -206,8 +318,8 @@ int main() {
     Q5();
     Q6();
     Q7();
-    /*Q8();
-    Q9();*/
+    Q8();
+    Q9();
 
     return 0;
 }
