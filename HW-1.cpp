@@ -157,18 +157,14 @@ void Q6()
     cout << "dC = " << dC << std::endl;
 }
 
-double gradient_weights(double sigma, double x, double y, double w)
+vector<double> gradient_weights(double sigma, vector<double> x, double y, vector<double> w)
 {
-    double dwi = (2 * (sigma * (w * x) - y) * (sigma * (w * x) * (1 - sigma * (w * x))));
+    double z = dot_product(w, x);
+    double dwi = (2 * (sigma * (z) - y) * (sigma * (z) * (1 - sigma * (z))));
 }
 
-void update_weights(vector<double>& w, const vector<double>& dw, double alpha) 
+double update_weights/*(vector<double> wi, double a, double dwi)*/(vector<double>& w, const vector<double>& dw, double alpha) 
 {
-    if (w.size() != dw.size()) 
-    {
-        throw invalid_argument("Vector sizes must be the same");
-    }
-
     for (size_t i = 0; i < w.size(); ++i) 
     {
         w[i] -= alpha * dw[i];
@@ -177,13 +173,18 @@ void update_weights(vector<double>& w, const vector<double>& dw, double alpha)
 
 void Q7() 
 {
+    //Reused from 4
     vector<double> w = { 0.0001, 0.0001, 0.0001 };
     vector<double> x = { 124, 31.89, 20.945 };
     double y = 1.0;
     double alpha = 0.001;
 
+    //Copying from Q5
+    double z = 0.0176835;
+    double sigmoid_output = sigmoid(z);
+
     // Calculate the gradient of the cost function
-    vector<double> dw = gradient_weights(w, x, y);
+    vector<double> dw = gradient_weights(sigmoid_output, x, y, w);
 
     // Update the weights
     update_weights(w, dw, alpha);
