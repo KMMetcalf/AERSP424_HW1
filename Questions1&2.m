@@ -1,6 +1,7 @@
 //Homework 1
 //Team: Tom Hansen, Kameron Metcalf, Ian Atkinson
 //Professor Thanakorn Khamvilai
+//Used chatgpt for guidance but Code is original
 
 #include "HW-1.h"
 #include <iostream>
@@ -10,8 +11,9 @@
 
 using namespace std;
 
-void question1() {
-    double L_p = -1;    //roll damping coefficient
+void Q1() {
+    cout << "QUESTION 1:" << endl;
+    double L_p = -1;   //roll damping coefficient
     double L_delta = 1;  //aileron effectiveness
     double deflect = 1;  //aileron deflection angle
     double p = 1; // rad/s. This is p0 initially
@@ -34,7 +36,7 @@ void question1() {
     }
 }
 
-void question2() {
+void Q2() {
     cout << "QUESTION 2:" << endl;
     int K = 2; // Control gain
 
@@ -52,7 +54,6 @@ void question2() {
         }
         if (i <= 2) {
             deflect = 1;
-        }
 
         p = p_old + (((L_p * p_old) + (L_delta * deflect)) * delta_t); //new value of roll
 
