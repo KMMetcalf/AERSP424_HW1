@@ -32,8 +32,17 @@
   //AT-504
   x = [73, 52.00, 9.600];
   y = [0]; //Turboprop 
+// -----------------------------------------------------------------------------------------------------------------
 
-//for question 9
+//Question 9
+
+  double w = wi; // w from question 8
+  double y = 1; //1 is a placeholder for the type of engine
+
+for (statement 1; statement 2; statement 3) {
+  // code block to be executed
+}
+  
 //SF50 Vision
   x = [87.0, 38.67, 6.000];
 //208 Caravan
@@ -42,3 +51,14 @@
   x = [92.0, 33.75, 7.804]; 
 //AT-802U
   x = [91.0, 59.25, 16.000];
+
+//math to find y to determine engine type 
+
+if (y > 0.5) {
+  cout << "The engine type of a " << airplane << "is a Jet Engine" << endl;
+if (y < 0.5) {
+cout << "The engine type of a " << airplane << "is a Turbo Prop" << endl;
+else
+  cout << "This plane doesn't work." << endl;
+}
+
