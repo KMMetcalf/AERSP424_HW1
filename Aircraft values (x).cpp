@@ -84,9 +84,9 @@ void EngineDetermination() {  //function to determine which engine type the plan
 //math to find y to determine engine type 
 
 if (y > 0.5) {
-  cout << "The engine type of a " << airplane << "is a Jet Engine" << endl;
+  cout << "The engine type of a " << airplane << " is a Jet Engine." << endl;
 if (y < 0.5) {
-cout << "The engine type of a " << airplane << "is a Turbo Prop" << endl;
+cout << "The engine type of a " << airplane << " is a Turbo Prop." << endl;
 else
   cout << "This plane doesn't work." << endl;
 }
