@@ -169,9 +169,9 @@ void Q5()
     cout << "Gradient of the sigmoid(" << z << ") = " << gradient_output << std::endl;
 }
 
-double gradient_cost(double y, double y_predict)
+double gradient_cost(double y_predict, double y)
 {
-    double dC = 2 * (y_predict - y);
+    double dC = ( 2 * (y_predict - y));
     return dC;
 }
 
@@ -244,7 +244,7 @@ void Q8()
     //double x[8][3] = { {124, 31.89, 20.945}, {74, 51.08, 9.170}, {103, 34.67, 8.3}, {77, 52, 9.4}, {104, 35.63, 13}, {92, 56, 12.5}, {130, 31.29, 17.637}, {73, 52, 9.6} };
     //double y[8][1] = {1, 0, 1, 0, 1, 0, 1, 0};
 
-    vector<vector<double>> aircraftData = {
+    vector<vector<double>> x = {
         {124, 31.89, 20.945},
         {74, 51.08, 9.170},
         {103, 34.67, 8.3},
@@ -252,92 +252,109 @@ void Q8()
         {104, 35.63, 13},
         {92, 56, 12.5},
         {130, 31.29, 17.637},
-        {73, 52, 9.6}
+        {73, 52, 9.6}                    // info on all 8 planes from the list
     };
+    vector<int> y = { 1, 0, 1, 0, 1, 0, 1, 0 }; // engines. 1 = jet, 0 = prop
+
+    for (int i = 0; i < 8; i++)        // running 8 times to account for all 8 aircraft
+    {   
+        vector<double> x_func = x[i];
+        double y_func = y[i];          // pairing plane with engine
+        vector<double> dw = { 0,0,0 };    // initializing
+
+        for (int j = 0; j < 150; j++)  // iterating 150 times (> 100)
+        {
+            double z = dot_product(w, x_func);
+            double sigmoid_output = sigmoid(z);
+            dw = gradient_weights(sigmoid_output, x_func, y_func, w);
+            // Update the weights
+            w = update_weights(w, dw, alpha);
+        }
+        cout << w[1] << endl;
+    }
+
 }
 
-void Q9()
-{
-    cout << endl;
-    cout << "QUESTION 9:" << endl;
-    vector<double> wi = { 0.0001, 0.0001, 0.0001 }; // w from question 8
-    double y = 1; //1 is a placeholder for the type of engine
-    string airplane = " "; //used to display what type of plane has the found type of engine
-
-    for (int i = 1; i <= 4; ++i) {
-        // code block to be executed
-
-      //SF50 Vision
-        for (int j = 0; j < 150; j++)
-        {
-            if (i = 1)
-             {
-              vector<double> x = { 87.0, 38.67, 6.000 };
-              airplane = "SF50";
-             EngineDetermination(airplane, w, x);
-             return;
-        }
-
-        //208 Caravan
-        if (i = 2)
-        {
-            vector<double> x = { 79.0, 52.08, 8.000 };
-            airplane = "208 Caravan";
-            EngineDetermination(airplane, w, x);
-            return;
-        }
-
-        if (i = 3)
-        {
-            //Aero L-29 Delfin
-            vector<double> x = { 92.0, 33.75, 7.804 };
-            airplane = "Aero L - 29 Delfin";
-            EngineDetermination(airplane, w, x);
-            return;
-        }
-
-        if (i = 4)
-        {
-            //AT-802U
-            vector<double> x = { 91.0, 59.25, 16.000 };
-            airplane = "AT - 802U";
-            EngineDetermination(airplane, w, x);
-            return;
-        }
-        }
-        
-    }
-}
-
-void EngineDetermination(string airplane, vector<double> w, vector<double> x) 
-{  //function to determine which engine type the plane posesses
-    //math to find y to determine engine type 
-    
-    // Reusing sigma equations from earlier
-    double z = 0.0176835;
-    double sigmoid_output = sigmoid(z);
-    //vector<double> w = RESULT FROM 8;
-    //vector<double> x = { 124, 31.89, 20.945 };
-
-    double dot = dot_product(w, x);
-
-    double y = (sigmoid_output * (dot));
-
-    if (y > 0.5) 
-    {
-        cout << "The engine of a " << airplane << " is a Turbojet Engine." << endl;
-    }
-
-    if (y < 0.5)
-    {
-        cout << "The engine of a " << airplane << " is a Turboprop engine." << endl;
-    }
-
-    else
-    {
-        cout << "This plane doesn't work." << endl;
-    }
-}
+//void Q9()
+//{
+//    cout << endl;
+//    cout << "QUESTION 9:" << endl;
+//    vector<double> wi = { 0.0001, 0.0001, 0.0001 }; // w from question 8
+//    double y = 1; //1 is a placeholder for the type of engine
+//    string airplane = " "; //used to display what type of plane has the found type of engine
+//
+//    for (int i = 1; i <= 4; ++i) {
+//        // code block to be executed
+//
+//      //SF50 Vision
+//        
+//            if (i = 1)
+//             {
+//              vector<double> x = { 87.0, 38.67, 6.000 };
+//              airplane = "SF50";
+//             EngineDetermination(airplane, w, x);
+//             return;
+//        }
+//
+//        //208 Caravan
+//        if (i = 2)
+//        {
+//            vector<double> x = { 79.0, 52.08, 8.000 };
+//            airplane = "208 Caravan";
+//            EngineDetermination(airplane, w, x);
+//            return;
+//        }
+//
+//        if (i = 3)
+//        {
+//            //Aero L-29 Delfin
+//            vector<double> x = { 92.0, 33.75, 7.804 };
+//            airplane = "Aero L - 29 Delfin";
+//            EngineDetermination(airplane, w, x);
+//            return;
+//        }
+//
+//        if (i = 4)
+//        {
+//            //AT-802U
+//            vector<double> x = { 91.0, 59.25, 16.000 };
+//            airplane = "AT - 802U";
+//            EngineDetermination(airplane, w, x);
+//            return;
+//        }
+//        
+//    }
+//}
+//
+//void EngineDetermination(string airplane, vector<double> w, vector<double> x) 
+//{  //function to determine which engine type the plane posesses
+//    //math to find y to determine engine type 
+//    
+//    // Reusing sigma equations from earlier
+//    double z = 0.0176835;
+//    double sigmoid_output = sigmoid(z);
+//    //vector<double> w = RESULT FROM 8;
+//    //vector<double> x = { 124, 31.89, 20.945 };
+//
+//    double dot = dot_product(w, x);
+//
+//    double y = (sigmoid_output * (dot));
+//
+//    if (y > 0.5) 
+//    {
+//        cout << "The engine of a " << airplane << " is a Turbojet Engine." << endl;
+//    }
+//
+//    if (y < 0.5)
+//    {
+//        cout << "The engine of a " << airplane << " is a Turboprop engine." << endl;
+//    }
+//
+//    else
+//    {
+//        cout << "This plane doesn't work." << endl;
+//    }
+//}
 
 int main() {
     // Calling the functions for each question to run them
@@ -349,7 +366,7 @@ int main() {
     Q6();
     Q7();
     Q8();
-    Q9();
+    //Q9();
 
     return 0;
 }
