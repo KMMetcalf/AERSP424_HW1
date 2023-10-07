@@ -103,9 +103,14 @@ void Q3()
 double dot_product(vector<double> a, vector<double> b)
 {
     double dotproduct = 0;
+     // Define a 1 x 3 vector as an array
+    int transpose[1][3] = { {1, 2, 3} };
+
+    // Transpose the vector (convert it to a 3 x 1 vector)
+    int transposedVector[3][1] = { {vector[0][0]}, {vector[0][1]}, {vector[0][2]} };
     for (int i = 0; i < a.size(); i++)
     {
-        dotproduct += b[i] * a[i];
+        dotproduct += b[i] * transpose[i];
     }
     return dotproduct;
 }
@@ -238,6 +243,7 @@ void Q8()
     cout << "QUESTION 8:" << endl;
     vector<double> w = { 0.0001, 0.0001, 0.0001 };
     double alpha = 0.001;
+
 }
 
 void Q9()
@@ -246,67 +252,81 @@ void Q9()
     cout << "QUESTION 9:" << endl;
     vector<double> wi = { 0.0001, 0.0001, 0.0001 }; // w from question 8
     double y = 1; //1 is a placeholder for the type of engine
-    string airplane = planetype; //used to display what type of plane has the found type of engine
+    string airplane = " "; //used to display what type of plane has the found type of engine
 
     for (int i = 1; i <= 4; ++i) {
         // code block to be executed
 
       //SF50 Vision
-        if (i = 1)
+        for (int j = 0; j < 150; j++)
         {
-            vector<double> x = { 87.0, 38.67, 6.000 };
-            airplane = SF50;
-            EngineDetermination();
-            return 0;
+            if (i = 1)
+             {
+              vector<double> x = { 87.0, 38.67, 6.000 };
+              airplane = "SF50";
+             EngineDetermination(airplane, w, x);
+             return;
         }
 
         //208 Caravan
         if (i = 2)
         {
             vector<double> x = { 79.0, 52.08, 8.000 };
-            airplane = 208 Caravan;
-            EngineDetermination();
-            return 0;
+            airplane = "208 Caravan";
+            EngineDetermination(airplane, w, x);
+            return;
         }
 
         if (i = 3)
         {
             //Aero L-29 Delfin
             vector<double> x = { 92.0, 33.75, 7.804 };
-            airplane = Aero L - 29 Delfin;
-            EngineDetermination();
-            return 0;
+            airplane = "Aero L - 29 Delfin";
+            EngineDetermination(airplane, w, x);
+            return;
         }
 
         if (i = 4)
         {
             //AT-802U
             vector<double> x = { 91.0, 59.25, 16.000 };
-            airplane = AT - 802U;
-            EngineDetermination();
-            return 0;
+            airplane = "AT - 802U";
+            EngineDetermination(airplane, w, x);
+            return;
         }
+        }
+        
     }
 }
 
-void EngineDetermination() 
+void EngineDetermination(string airplane, vector<double> w, vector<double> x) 
 {  //function to determine which engine type the plane posesses
-    //math to find y to determine engine type         
-    if (y > 0.5) {
+    //math to find y to determine engine type 
+    
+    // Reusing sigma equations from earlier
+    double z = 0.0176835;
+    double sigmoid_output = sigmoid(z);
+    //vector<double> w = RESULT FROM 8;
+    //vector<double> x = { 124, 31.89, 20.945 };
 
+    double dot = dot_product(w, x);
+
+    double y = (sigmoid_output * (dot));
+
+    if (y > 0.5) 
+    {
         cout << "The engine type of a " << airplane << " is a Jet Engine." << endl;
-
-        if (y < 0.5)
-        {
-            cout << "The engine type of a " << airplane << " is a Turbo Prop." << endl;
-        }
-
-        else
-        {
-            cout << "This plane doesn't work." << endl;
-        }
     }
 
+    if (y < 0.5)
+    {
+        cout << "The engine type of a " << airplane << " is a Turbo Prop." << endl;
+    }
+
+    else
+    {
+        cout << "This plane doesn't work." << endl;
+    }
 }
 
 int main() {
