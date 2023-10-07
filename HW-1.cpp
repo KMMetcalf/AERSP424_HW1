@@ -103,14 +103,12 @@ void Q3()
 double dot_product(vector<double> a, vector<double> b)
 {
     double dotproduct = 0;
-     // Define a 1 x 3 vector as an array
-    int transpose[1][3] = { {1, 2, 3} };
 
-    // Transpose the vector (convert it to a 3 x 1 vector)
-    int transposedVector[3][1] = { {vector[0][0]}, {vector[0][1]}, {vector[0][2]} };
+    //vector<vector<double>> verticalVector = { {1}, {2}, {3} };
+
     for (int i = 0; i < a.size(); i++)
     {
-        dotproduct += b[i] * transpose[i];
+        dotproduct += a[i] * b[i];
     }
     return dotproduct;
 }
@@ -243,7 +241,19 @@ void Q8()
     cout << "QUESTION 8:" << endl;
     vector<double> w = { 0.0001, 0.0001, 0.0001 };
     double alpha = 0.001;
+    //double x[8][3] = { {124, 31.89, 20.945}, {74, 51.08, 9.170}, {103, 34.67, 8.3}, {77, 52, 9.4}, {104, 35.63, 13}, {92, 56, 12.5}, {130, 31.29, 17.637}, {73, 52, 9.6} };
+    //double y[8][1] = {1, 0, 1, 0, 1, 0, 1, 0};
 
+    vector<vector<double>> aircraftData = {
+        {124, 31.89, 20.945},
+        {74, 51.08, 9.170},
+        {103, 34.67, 8.3},
+        {77, 52, 9.4},
+        {104, 35.63, 13},
+        {92, 56, 12.5},
+        {130, 31.29, 17.637},
+        {73, 52, 9.6}
+    };
 }
 
 void Q9()
@@ -315,12 +325,12 @@ void EngineDetermination(string airplane, vector<double> w, vector<double> x)
 
     if (y > 0.5) 
     {
-        cout << "The engine type of a " << airplane << " is a Jet Engine." << endl;
+        cout << "The engine of a " << airplane << " is a Turbojet Engine." << endl;
     }
 
     if (y < 0.5)
     {
-        cout << "The engine type of a " << airplane << " is a Turbo Prop." << endl;
+        cout << "The engine of a " << airplane << " is a Turboprop engine." << endl;
     }
 
     else
