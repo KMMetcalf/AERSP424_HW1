@@ -1,5 +1,7 @@
-﻿// Worked with: Tom Hansen & Kameron Metcalf
-// Used ChatGPT for some guidance but code is original
+//Homework 1
+//Team: Tom Hansen, Kameron Metcalf, Ian Atkinson
+//Professor Thanakorn Khamvilai
+//Used chatgpt for guidance but Code is original
 
 #include "HW-1.h"
 #include <iostream>
@@ -12,14 +14,14 @@ using namespace std;
 void Q1() 
 {
     cout << "QUESTION 1:" << endl;
-    double L_p = -1;
-    double L_delta = 1;
-    double deflect = 1;
+ double L_p = -1;   //roll damping coefficient
+    double L_delta = 1;  //aileron effectiveness
+    double deflect = 1;  //aileron deflection angle
     double p = 1; // rad/s. This is p0 initially
-    double p_old = 1;
-    double delta_t = 0.01;
+    double p_old = 1; // initial roll rate
+    double delta_t = 0.01; //step size
 
-    for (double i = 0; i <= 5; i = (i + delta_t)) {
+    for (double i = 0; i <= 5; i = (i + delta_t)) { //roll rate prediction over 5 seconds with pilot
         if (i > 2) {
             deflect = 0;
         }
@@ -27,11 +29,11 @@ void Q1()
             deflect = 1;
         }
 
-        p = p_old + (((L_p * p_old) + (L_delta * deflect)) * delta_t);
+        p = p_old + (((L_p * p_old) + (L_delta * deflect)) * delta_t); //new value of roll
 
-        cout << "Time = " << i << " seconds and roll rate = " << p << " rad/s." << endl;
+        cout << "Time = " << i << " seconds and roll rate = " << p << " rad/s." << endl; //output of roll rate for every second
 
-        p_old = p;
+        p_old = p; //p_old becomes p
     }
 }
 
@@ -42,14 +44,14 @@ void Q2()
     int K = 2; // Control gain
 
     // Resetting the previous variables for a new loop
-    double L_p = -1;
-    double L_delta = 1;
-    double p = 0;
-    double p_old = 0;
-    double deflect = -K * p_old; // Redefining the deflection formula
-    double delta_t = 0.01;
+    double L_p = -1; //roll damping ratio 2
+    double L_delta = 1; //aileron effectiveness 2
+    double p = 0; //roll rate 2
+    double p_old = 0; //initial roll rate 2
+    double deflect = -K * p_old; // Redefining the deflection formula  
+    double delta_t = 0.01; // stepsize
 
-    for (double i = 0; i <= 5; i = (i + delta_t)) {
+    for (double i = 0; i <= 5; i = (i + delta_t)) { //roll rate prediction over 5 seconds with autopilot
         if (i > 2) {
             deflect = 0;
         }
@@ -57,9 +59,9 @@ void Q2()
             deflect = 1;
         }
 
-        p = p_old + (((L_p * p_old) + (L_delta * deflect)) * delta_t);
+        p = p_old + (((L_p * p_old) + (L_delta * deflect)) * delta_t); //new value of roll
 
-        cout << "Time = " << i << " seconds and roll rate = " << p << " rad/s." << endl;
+        cout << "Time = " << i << " seconds and roll rate = " << p << " rad/s." << endl; //output of roll rate for every second
 
         p_old = p;
     }
@@ -145,13 +147,13 @@ void Q4()
 // Sigmoid equation for #5
 double sigmoid(double z) 
 {
-    double sigma_z = (1.0 / (1.0 + exp(-z)));
+    double sigma_z = (1.0 / (1.0 + exp(-z))); //Formula for sigmoid
     return sigma_z;
 }
 
-double gradient_sigmoid(double z) 
+double gradient_sigmoid(double z)  //function for gradient_sigmoid
 {
-    double sigma_z = sigmoid(z);
+    double sigma_z = sigmoid(z);  //formula for gradient sigmoid
     double d_sigma = (sigma_z * (1.0 - sigma_z));
     return d_sigma;
 }
@@ -162,16 +164,16 @@ void Q5()
     cout << "QUESTION 5:" << endl;
     double z = 0.0176835;
 
-    double sigmoid_output = sigmoid(z);
-    double gradient_output = gradient_sigmoid(z);
+    double sigmoid_output = sigmoid(z); //sigmoid output value
+    double gradient_output = gradient_sigmoid(z); //gradient sigmoid output value
 
     cout << "Sigmoid(" << z << ") = " << sigmoid_output << std::endl;
     cout << "Gradient of the sigmoid(" << z << ") = " << gradient_output << std::endl;
 }
-
-double gradient_cost(double y_predict, double y)
+//Question 6
+double gradient_cost(double y_predict, double y) //function for gradient cost
 {
-    double dC = ( 2 * (y_predict - y));
+    double dC = ( 2 * (y_predict - y));  //formula for gradient cost
     return dC;
 }
 
@@ -179,10 +181,10 @@ void Q6()
 {
     cout << endl;
     cout << "QUESTION 6:" << endl;
-    double y = 1.0;
-    double y_predicted = 0.504421;
+    double y = 1.0; //variable y
+    double y_predicted = 0.504421; //y predicted
 
-    double dC = gradient_cost(y_predicted, y);
+    double dC = gradient_cost(y_predicted, y); //Displaying gradient cost value
 
     cout << "dC = " << dC << std::endl;
 }
@@ -212,14 +214,14 @@ void Q7()
     cout << endl;
     cout << "QUESTION 7:" << endl;
     //Reused from 4
-    vector<double> w = { 0.0001, 0.0001, 0.0001 };
-    vector<double> x = { 124, 31.89, 20.945 };
-    double y = 1.0;
-    double alpha = 0.001;
+    vector<double> w = { 0.0001, 0.0001, 0.0001 }; //vector for w
+    vector<double> x = { 124, 31.89, 20.945 };  //vector for x
+    double y = 1.0; //y value
+    double alpha = 0.001; //angle alpha 
 
     //Copying from Q5
-    double z = 0.0176835;
-    double sigmoid_output = sigmoid(z);
+    double z = 0.0176835; //z value from Q5
+    double sigmoid_output = sigmoid(z); //sigma of z
 
     // Calculate the gradient of the cost function
     vector<double> dw = gradient_weights(sigmoid_output, x, y, w);
@@ -239,8 +241,8 @@ void Q8()
 {
     cout << endl;
     cout << "QUESTION 8:" << endl;
-    vector<double> w = { 0.0001, 0.0001, 0.0001 };
-    double alpha = 0.001;
+    vector<double> w = { 0.0001, 0.0001, 0.0001 }; // w vector
+    double alpha = 0.001; //alpha angle
     //double x[8][3] = { {124, 31.89, 20.945}, {74, 51.08, 9.170}, {103, 34.67, 8.3}, {77, 52, 9.4}, {104, 35.63, 13}, {92, 56, 12.5}, {130, 31.29, 17.637}, {73, 52, 9.6} };
     //double y[8][1] = {1, 0, 1, 0, 1, 0, 1, 0};
 
@@ -276,7 +278,7 @@ void Q8()
 }
 
 void EngineDetermination(string airplane, vector<double> w, vector<double> x)
-{  //function to determine which engine type the plane posesses
+{  //function to determine which engine type the plane possesses
     //math to find y to determine engine type 
 
     // Reusing sigma equations from earlier
